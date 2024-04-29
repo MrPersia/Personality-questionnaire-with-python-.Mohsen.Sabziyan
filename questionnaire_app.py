@@ -20,11 +20,13 @@ def get_responses(fragen):
     return None
 
 def assign_categories(antworten, kategorien):
-    ergebnisse = {k: sum(antworten[frage] for frage in fragen) for k, fragen in kategorien.items()}
+    ergebnisse = {}
+    for k, fragen in kategorien.items():
+        ergebnisse[k] = sum(antworten[frage] for frage in fragen)
     return ergebnisse
 
 def plot_results(ergebnisse):
-    plt.figure(figsize=(10, 6))
+    plt.figure(figsize=(12, 8))
     plt.bar(ergebnisse.keys(), ergebnisse.values(), color='skyblue')
     plt.title('Testergebnisse nach Kategorien')
     plt.xlabel('Kategorie')
@@ -36,20 +38,20 @@ def plot_results(ergebnisse):
     st.pyplot(plt)
 
 def evaluate_results(ergebnisse):
-    gesamtpunkte = sum(ergebnisse.values())
-    if gesamtpunkte < 30:
-        auswertung = "förderlich"
-        auswertung_color = "green"
-    elif gesamtpunkte < 40:
-        auswertung = "mögliche Leistungsbeeinträchtigung"
-        auswertung_color = "orange"
-    else:
-        auswertung = "möglicherweise gesundheitsgefährdend"
-        auswertung_color = "red"
-    st.write("Ergebnisse:")
-    st.write(f"Gesamtpunkte: {gesamtpunkte}")
-    st.markdown(f"Auswertung: <span style='color:{auswertung_color}'>{auswertung}</span>", unsafe_allow_html=True)
-
+    st.write("Auswertung für jede Kategorie:")
+    for k, v in ergebnisse.items():
+        auswertung = ""
+        auswertung_color = ""
+        if v < 30:
+            auswertung = "förderlich"
+            auswertung_color = "green"
+        elif v < 40:
+            auswertung = "mögliche Leistungsbeeinträchtigung"
+            auswertung_color = "orange"
+        else:
+            auswertung = "möglicherweise gesundheitsgefährdend"
+            auswertung_color = "red"
+        st.write(f"{k}: {v} Punkte - Auswertung: ", auswertung, ' ', st.markdown(f"<span style='color:{auswertung_color}'>{auswertung}</span>", unsafe_allow_html=True))
 
 def questionnaire_app():
     st.title("Persönlichkeitsfragebogen")
