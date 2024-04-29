@@ -51,7 +51,8 @@ def evaluate_results(ergebnisse):
         else:
             auswertung = "möglicherweise gesundheitsgefährdend"
             auswertung_color = "red"
-        st.write(f"{k}: {v} Punkte - Auswertung: ", auswertung, ' ', st.markdown(f"<span style='color:{auswertung_color}'>{auswertung}</span>", unsafe_allow_html=True))
+        markdown_text = f"<span style='color:{auswertung_color}'>{auswertung}</span>"
+        st.write(f"{k}: {v} Punkte - Auswertung: ", auswertung, markdown_text, unsafe_allow_html=True)
 
 def questionnaire_app():
     st.title("Persönlichkeitsfragebogen")
