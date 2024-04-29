@@ -27,32 +27,37 @@ def assign_categories(antworten, kategorien):
 
 def plot_results(ergebnisse):
     plt.figure(figsize=(12, 8))
-    plt.bar(ergebnisse.keys(), ergebnisse.values(), color='skyblue')
+    colors = []
+    for v in ergebnisse.values():
+        if v < 30:
+            colors.append("green")
+        elif v < 40:
+            colors.append("orange")
+        else:
+            colors.append("red")
+    bars = plt.bar(ergebnisse.keys(), ergebnisse.values(), color=colors)
     plt.title('Testergebnisse nach Kategorien')
     plt.xlabel('Kategorie')
     plt.ylabel('Punkte')
     plt.ylim(0, 50)
     plt.grid(axis='y', linestyle='--', alpha=0.7)
-    for i, (k, v) in enumerate(ergebnisse.items()):
-        plt.text(i, v + 1, str(v), ha='center', va='bottom')
+    for bar, v in zip(bars, ergebnisse.values()):
+        plt.text(bar.get_x() + bar.get_width()/2, v + 1, str(v), ha='center', va='bottom')
     st.pyplot(plt)
 
 def evaluate_results(ergebnisse):
     st.write("Auswertung für jede Kategorie:")
     for k, v in ergebnisse.items():
         auswertung = ""
-        auswertung_color = ""
         if v < 30:
             auswertung = "förderlich"
-            auswertung_color = "green"
         elif v < 40:
             auswertung = "mögliche Leistungsbeeinträchtigung"
-            auswertung_color = "orange"
         else:
             auswertung = "möglicherweise gesundheitsgefährdend"
-            auswertung_color = "red"
-        markdown_text = f"<span style='color:{auswertung_color}'>{auswertung}</span>"
-        st.write(f"{k}: {v} Punkte - Auswertung: ", auswertung, markdown_text, unsafe_allow_html=True)
+        color = "green" if v < 30 else ("orange" if v < 40 else "red")
+        st.write(f"{k}: {v} Punkte - Auswertung: ", st.markdown(f"<span style='color:{color}'>{auswertung}</span>", unsafe_allow_html=True))
+
 
 def questionnaire_app():
     st.title("Persönlichkeitsfragebogen")
