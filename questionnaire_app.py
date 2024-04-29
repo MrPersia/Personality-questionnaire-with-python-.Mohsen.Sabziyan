@@ -24,15 +24,14 @@ def assign_categories(antworten, kategorien):
     return ergebnisse
 
 def plot_results(ergebnisse):
-    plt.figure(figsize=(10, 6))
-    plt.bar(ergebnisse.keys(), ergebnisse.values(), color='skyblue')
+    plt.figure(figsize=(12, 8))
+    for i, (k, v) in enumerate(ergebnisse.items()):
+        plt.bar(k, v, color='skyblue')
+        plt.text(i, v + 0.5, str(v), ha='center', va='bottom')
     plt.title('Testergebnisse nach Kategorien')
     plt.xlabel('Kategorie')
     plt.ylabel('Punkte')
-    plt.ylim(0, 50)
     plt.grid(axis='y', linestyle='--', alpha=0.7)
-    for i, (k, v) in enumerate(ergebnisse.items()):
-        plt.text(i, v + 1, str(v), ha='center', va='bottom')
     st.pyplot(plt)
 
 def evaluate_results(ergebnisse):
@@ -46,7 +45,7 @@ def evaluate_results(ergebnisse):
     else:
         auswertung = "möglicherweise gesundheitsgefährdend"
         auswertung_color = "red"
-    st.write("Ergebnisse:")
+    st.write("Gesamtergebnis:")
     st.write(f"Gesamtpunkte: {gesamtpunkte}")
     st.markdown(f"Auswertung: <span style='color:{auswertung_color}'>{auswertung}</span>", unsafe_allow_html=True)
 
