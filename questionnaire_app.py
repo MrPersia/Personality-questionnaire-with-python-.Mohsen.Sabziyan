@@ -39,13 +39,17 @@ def evaluate_results(ergebnisse):
     gesamtpunkte = sum(ergebnisse.values())
     if gesamtpunkte < 30:
         auswertung = "förderlich"
+        auswertung_color = "green"
     elif gesamtpunkte < 40:
         auswertung = "mögliche Leistungsbeeinträchtigung"
+        auswertung_color = "orange"
     else:
         auswertung = "möglicherweise gesundheitsgefährdend"
+        auswertung_color = "red"
     st.write("Ergebnisse:")
     st.write(f"Gesamtpunkte: {gesamtpunkte}")
-    st.write(f"Auswertung: {auswertung}")
+    st.write(f"Auswertung: ", auswertung, ' ', st.markdown("<span style='color:%s'>%s</span>" % (auswertung_color, auswertung_color), unsafe_allow_html=True))
+
 
 def questionnaire_app():
     st.title("Persönlichkeitsfragebogen")
