@@ -51,12 +51,14 @@ def evaluate_results(ergebnisse):
         auswertung = ""
         if v < 30:
             auswertung = "förderlich"
+            color = "green"
         elif v < 40:
             auswertung = "mögliche Leistungsbeeinträchtigung"
+            color = "orange"
         else:
             auswertung = "möglicherweise gesundheitsgefährdend"
-        color = "green" if v < 30 else ("orange" if v < 40 else "red")
-        st.write(f"{k}: {v} Punkte - Auswertung: ", st.markdown(f"<span style='color:{color}'>{auswertung}</span>", unsafe_allow_html=True))
+            color = "red"
+        st.write(f"{k}: {v} Punkte - Auswertung: <span style='color:{color}'>{auswertung}</span>", unsafe_allow_html=True)
 
 
 def questionnaire_app():
