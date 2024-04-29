@@ -48,7 +48,7 @@ def evaluate_results(ergebnisse):
         auswertung_color = "red"
     st.write("Ergebnisse:")
     st.write(f"Gesamtpunkte: {gesamtpunkte}")
-    st.write(f"Auswertung: ", auswertung, ' ', st.markdown("<span style='color:%s'>%s</span>" % (auswertung_color, auswertung_color), unsafe_allow_html=True))
+    st.markdown(f"Auswertung: <span style='color:{auswertung_color}'>{auswertung}</span>", unsafe_allow_html=True)
 
 
 def questionnaire_app():
