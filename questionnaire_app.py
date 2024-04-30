@@ -49,21 +49,20 @@ def plot_results(ergebnisse):
     colors = []
     for v in ergebnisse.values():
         if v < 30:
-            colors.append("#55a868")  # Grün
+            colors.append("green")
         elif v < 40:
-            colors.append("#ff7f0e")  # Orange
+            colors.append("orange")
         else:
-            colors.append("#c44e52")  # Rot
-    sns.barplot(x=list(ergebnisse.keys()), y=list(ergebnisse.values()), palette=colors)
+            colors.append("red")
+    bars = plt.bar(ergebnisse.keys(), ergebnisse.values(), color=colors)
     plt.title('Testergebnisse nach Kategorien')
     plt.xlabel('Kategorie')
     plt.ylabel('Punkte')
     plt.ylim(0, 50)
     plt.grid(axis='y', linestyle='--', alpha=0.7)
-    for i, v in enumerate(ergebnisse.values()):
-        plt.text(i, v + 1, str(v), ha='center', va='bottom')
+    for bar, v in zip(bars, ergebnisse.values()):
+        plt.text(bar.get_x() + bar.get_width()/2, v + 1, str(v), ha='center', va='bottom')
     st.pyplot(plt)
-
 
 def evaluate_results(ergebnisse, language):
     if language == "Deutsch":
