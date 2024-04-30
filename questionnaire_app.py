@@ -23,10 +23,16 @@ def get_responses(fragen):
     for frage in fragen:
         antworten[frage] = form.slider(frage, 1, 5, key=frage)
     submit_button = form.form_submit_button("Submit")
+    
     if submit_button:
+        # Validierung der Eingaben
+        valid = all(1 <= antworten[frage] <= 5 for frage in fragen)
+        if not valid:
+            st.error("Bitte bewerten Sie jede Aussage auf einer Skala von 1 bis 5.")
+            return None
         return antworten
     return None
-
+    
 def assign_categories(antworten, kategorien):
     ergebnisse = {}
     for k, fragen in kategorien.items():
