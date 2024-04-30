@@ -42,25 +42,28 @@ def assign_categories(antworten, kategorien):
         ergebnisse[k] = sum(antworten[frage] for frage in fragen)
     return ergebnisse
 
+import seaborn as sns
+
 def plot_results(ergebnisse):
     plt.figure(figsize=(12, 8))
     colors = []
     for v in ergebnisse.values():
         if v < 30:
-            colors.append("green")
+            colors.append("#55a868")  # Grün
         elif v < 40:
-            colors.append("orange")
+            colors.append("#ff7f0e")  # Orange
         else:
-            colors.append("red")
-    bars = plt.bar(ergebnisse.keys(), ergebnisse.values(), color=colors)
+            colors.append("#c44e52")  # Rot
+    sns.barplot(x=list(ergebnisse.keys()), y=list(ergebnisse.values()), palette=colors)
     plt.title('Testergebnisse nach Kategorien')
     plt.xlabel('Kategorie')
     plt.ylabel('Punkte')
     plt.ylim(0, 50)
     plt.grid(axis='y', linestyle='--', alpha=0.7)
-    for bar, v in zip(bars, ergebnisse.values()):
-        plt.text(bar.get_x() + bar.get_width()/2, v + 1, str(v), ha='center', va='bottom')
+    for i, v in enumerate(ergebnisse.values()):
+        plt.text(i, v + 1, str(v), ha='center', va='bottom')
     st.pyplot(plt)
+
 
 def evaluate_results(ergebnisse, language):
     if language == "Deutsch":
@@ -70,13 +73,16 @@ def evaluate_results(ergebnisse, language):
             if v < 30:
                 auswertung = "förderlich"
                 color = "green"
+                tip = "Weiter so!"
             elif v < 40:
                 auswertung = "mögliche Leistungsbeeinträchtigung"
                 color = "orange"
+                tip = "Versuchen Sie, in diesem Bereich etwas zu verbessern."
             else:
                 auswertung = "möglicherweise gesundheitsgefährdend"
                 color = "red"
-            st.write(f"{k}: {v} Punkte - Auswertung: <span style='color:{color}'>{auswertung}</span>", unsafe_allow_html=True)
+                tip = "Es könnte wichtig sein, in diesem Bereich Unterstützung zu suchen."
+            st.write(f"{k}: {v} Punkte - Auswertung: <span style='color:{color}'>{auswertung}</span> - Tipp: {tip}", unsafe_allow_html=True)
     elif language == "English":
         st.write("Evaluation for every category:")
         for k, v in ergebnisse.items():
@@ -84,13 +90,17 @@ def evaluate_results(ergebnisse, language):
             if v < 30:
                 evaluation = "Encouraging"
                 color = "green"
+                tip = "Keep it up!"
             elif v < 40:
                 evaluation = "Potential Performance Impairment"
                 color = "orange"
+                tip = "Try to improve in this area."
             else:
                 evaluation = "Possibly Health Hazardous"
                 color = "red"
-            st.write(f"{k}: {v} Points - Evaluation: <span style='color:{color}'>{evaluation}</span>", unsafe_allow_html=True)
+                tip = "It might be important to seek support in this area."
+            st.write(f"{k}: {v} Points - Evaluation: <span style='color:{color}'>{evaluation}</span> - Tip: {tip}", unsafe_allow_html=True)
+
 
 def get_questions_and_categories(language):
     if language == "Deutsch":
