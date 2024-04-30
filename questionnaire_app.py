@@ -9,6 +9,7 @@ def show_instructions(language):
         st.write("3 - Etwas")
         st.write("4 - Gut")
         st.write("5 - Voll und Ganz")
+        st.write("(Bewegen Sie den Schieberegler, um Ihre Bewertung auszuwählen)")
     elif language == "English":
         st.write("Please rate each statement on a scale of 1 to 5:")
         st.write("1 - Not at all")
@@ -16,6 +17,8 @@ def show_instructions(language):
         st.write("3 - Somewhat")
         st.write("4 - Good")
         st.write("5 - Fully")
+        st.write("(Use the slider to select your rating)")
+
 
 def get_responses(fragen):
     antworten = {}
