@@ -332,7 +332,12 @@ def get_questions_and_categories(language):
             ]
         }
     return fragen, kategorien
-
+def export_results(ergebnisse):
+    df = pd.DataFrame(ergebnisse.items(), columns=['Kategorie', 'Punkte'])
+    st.write("Exportieren Sie die Ergebnisse als CSV:")
+    st.write(df)
+    csv = df.to_csv(index=False)
+    st.download_button(label="Download CSV", data=csv, file_name='results.csv', mime='text/csv')
 def questionnaire_app():
     st.title("Personality Questionnaire")
 
