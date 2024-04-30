@@ -1,13 +1,21 @@
 import streamlit as st
 import matplotlib.pyplot as plt
 
-def show_instructions():
-    st.write("Bitte bewerten Sie jede Aussage auf einer Skala von 1 bis 5:")
-    st.write("1 - Gar nicht")
-    st.write("2 - Kaum")
-    st.write("3 - Etwas")
-    st.write("4 - Gut")
-    st.write("5 - Voll und Ganz")
+def show_instructions(language):
+    if language == "Deutsch":
+        st.write("Bitte bewerten Sie jede Aussage auf einer Skala von 1 bis 5:")
+        st.write("1 - Gar nicht")
+        st.write("2 - Kaum")
+        st.write("3 - Etwas")
+        st.write("4 - Gut")
+        st.write("5 - Voll und Ganz")
+    elif language == "English":
+        st.write("Bitte bewerten Sie jede Aussage auf einer Skala von 1 bis 5:")
+        st.write("1 - Not at all")
+        st.write("2 - Kaum")
+        st.write("3 - Etwas")
+        st.write("4 - Gut")
+        st.write("5 - Voll und Ganz")
 
 def get_responses(fragen):
     antworten = {}
@@ -45,8 +53,23 @@ def plot_results(ergebnisse):
         plt.text(bar.get_x() + bar.get_width()/2, v + 1, str(v), ha='center', va='bottom')
     st.pyplot(plt)
 
-def evaluate_results(ergebnisse):
-    st.write("Auswertung für jede Kategorie:")
+def evaluate_results(ergebnisse, language):
+    if language == "Deutsch":
+        st.write("Auswertung für jede Kategorie:")
+        for k, v in ergebnisse.items():
+            auswertung = ""
+            if v < 30:
+                auswertung = "förderlich"
+                color = "green"
+            elif v < 40:
+                auswertung = "mögliche Leistungsbeeinträchtigung"
+                color = "orange"
+            else:
+                auswertung = "möglicherweise gesundheitsgefährdend"
+                color = "red"
+            st.write(f"{k}: {v} Punkte - Auswertung: <span style='color:{color}'>{auswertung}</span>", unsafe_allow_html=True)
+    elif language == "English":
+            st.write("Evaluation for every category:")
     for k, v in ergebnisse.items():
         auswertung = ""
         if v < 30:
