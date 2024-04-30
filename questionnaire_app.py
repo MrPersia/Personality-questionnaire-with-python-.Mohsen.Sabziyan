@@ -105,7 +105,17 @@ def export_results(ergebnisse):
     st.write("Exportieren Sie die Ergebnisse als CSV:")
     st.write(df)
     csv = df.to_csv(index=False)
-    st.download_button(label="Download CSV", data=csv, file_name='results.csv', mime='text/csv')
+    
+    # Speichern der CSV-Datei temporär
+    tmp_download_link = st.markdown(get_csv_download_link(csv), unsafe_allow_html=True)
+
+def get_csv_download_link(csv):
+    # Erstellt einen Download-Link für die CSV-Datei
+    href = f'<a href="data:file/csv;base64,{csv}" download="results.csv">Download CSV</a>'
+    return href
+
+ergebnisse = {"Kategorie 1": 25, "Kategorie 2": 35, "Kategorie 3": 40}
+export_results(ergebnisse)
 
 def get_questions_and_categories(language):
     if language == "Deutsch":
