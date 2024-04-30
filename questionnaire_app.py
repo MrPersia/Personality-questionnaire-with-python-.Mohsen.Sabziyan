@@ -69,19 +69,19 @@ def evaluate_results(ergebnisse, language):
                 color = "red"
             st.write(f"{k}: {v} Punkte - Auswertung: <span style='color:{color}'>{auswertung}</span>", unsafe_allow_html=True)
     elif language == "English":
-            st.write("Evaluation for every category:")
-    for k, v in ergebnisse.items():
-        auswertung = ""
-        if v < 30:
-            auswertung = "förderlich"
-            color = "green"
-        elif v < 40:
-            auswertung = "mögliche Leistungsbeeinträchtigung"
-            color = "orange"
-        else:
-            auswertung = "möglicherweise gesundheitsgefährdend"
-            color = "red"
-        st.write(f"{k}: {v} Punkte - Auswertung: <span style='color:{color}'>{auswertung}</span>", unsafe_allow_html=True)
+        st.write("Evaluation for every category:")
+        for k, v in ergebnisse.items():
+            evaluation = ""
+            if v < 30:
+                evaluation = "Encouraging"
+                color = "green"
+            elif v < 40:
+                evaluation = "Potential Performance Impairment"
+                color = "orange"
+            else:
+                evaluation = "Possibly Health Hazardous"
+                color = "red"
+            st.write(f"{k}: {v} Points - Evaluation: <span style='color:{color}'>{evaluation}</span>", unsafe_allow_html=True)
 
 def get_questions_and_categories(language):
     if language == "Deutsch":
