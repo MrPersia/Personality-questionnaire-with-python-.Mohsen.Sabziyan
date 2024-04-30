@@ -9,13 +9,13 @@ def show_instructions(language):
         st.write("3 - Etwas")
         st.write("4 - Gut")
         st.write("5 - Voll und Ganz")
-    elif language == "English":
-        st.write("Bitte bewerten Sie jede Aussage auf einer Skala von 1 bis 5:")
+     elif language == "English":
+        st.write("Please rate each statement on a scale of 1 to 5:")
         st.write("1 - Not at all")
-        st.write("2 - Kaum")
-        st.write("3 - Etwas")
-        st.write("4 - Gut")
-        st.write("5 - Voll und Ganz")
+        st.write("2 - Hardly")
+        st.write("3 - Somewhat")
+        st.write("4 - Good")
+        st.write("5 - Fully")
 
 def get_responses(fragen):
     antworten = {}
