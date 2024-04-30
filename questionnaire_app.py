@@ -9,7 +9,7 @@ def show_instructions(language):
         st.write("3 - Etwas")
         st.write("4 - Gut")
         st.write("5 - Voll und Ganz")
-     elif language == "English":
+    elif language == "English":
         st.write("Please rate each statement on a scale of 1 to 5:")
         st.write("1 - Not at all")
         st.write("2 - Hardly")
