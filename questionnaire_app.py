@@ -100,23 +100,6 @@ def evaluate_results(ergebnisse, language):
                 tip = "It might be important to seek support in this area."
             st.write(f"{k}: {v} Points - Evaluation: <span style='color:{color}'>{evaluation}</span> - Tip: {tip}", unsafe_allow_html=True)
 
-def export_results(ergebnisse):
-    df = pd.DataFrame(ergebnisse.items(), columns=['Kategorie', 'Punkte'])
-    st.write("Exportieren Sie die Ergebnisse als CSV:")
-    st.write(df)
-    csv = df.to_csv(index=False)
-    
-    # Speichern der CSV-Datei temporär
-    tmp_download_link = st.markdown(get_csv_download_link(csv), unsafe_allow_html=True)
-
-def get_csv_download_link(csv):
-    # Erstellt einen Download-Link für die CSV-Datei
-    href = f'<a href="data:file/csv;base64,{csv}" download="results.csv">Download CSV</a>'
-    return href
-
-ergebnisse = {"Kategorie 1": 25, "Kategorie 2": 35, "Kategorie 3": 40}
-export_results(ergebnisse)
-
 def get_questions_and_categories(language):
     if language == "Deutsch":
         fragen = [
