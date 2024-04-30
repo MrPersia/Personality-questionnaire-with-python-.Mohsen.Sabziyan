@@ -322,11 +322,11 @@ def questionnaire_app():
     language = st.selectbox("Choose language:", ["English", "Deutsch"])
 
     fragen, kategorien = get_questions_and_categories(language)
-    show_instructions()
+    show_instructions(language)
     antworten = get_responses(fragen)
     if antworten is not None:
         ergebnisse = assign_categories(antworten, kategorien)
-        evaluate_results(ergebnisse)
+        evaluate_results(ergebnisse, language)
         plot_results(ergebnisse)
 
 if __name__ == "__main__":
