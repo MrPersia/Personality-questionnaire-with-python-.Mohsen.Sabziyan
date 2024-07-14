@@ -3,7 +3,11 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
 
-plt.style.use('seaborn')
+# Verwenden Sie einen der verfügbaren Stile von matplotlib
+plt.style.use('ggplot')  # oder 'fivethirtyeight', 'seaborn-v0_8-darkgrid', etc.
+
+# Seaborn-Einstellungen
+sns.set_theme()
 
 def show_instructions(language):
     if language == "Deutsch":
@@ -52,15 +56,16 @@ def plot_results(ergebnisse):
     fig, ax = plt.subplots(figsize=(12, 8))
     colors = ['green' if v < 30 else 'orange' if v < 40 else 'red' for v in ergebnisse.values()]
     bars = ax.bar(ergebnisse.keys(), ergebnisse.values(), color=colors)
-    ax.set_title('Testergebnisse nach Kategorien')
-    ax.set_xlabel('Kategorie')
-    ax.set_ylabel('Punkte')
+    ax.set_title('Testergebnisse nach Kategorien', fontsize=16)
+    ax.set_xlabel('Kategorie', fontsize=12)
+    ax.set_ylabel('Punkte', fontsize=12)
     ax.set_ylim(0, 50)
     ax.grid(axis='y', linestyle='--', alpha=0.7)
     for bar in bars:
         height = bar.get_height()
         ax.text(bar.get_x() + bar.get_width()/2, height,
-                f'{height}', ha='center', va='bottom')
+                f'{height}', ha='center', va='bottom', fontsize=10)
+    plt.xticks(rotation=45, ha='right')
     plt.tight_layout()
     st.pyplot(fig)
     
