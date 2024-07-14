@@ -1,5 +1,9 @@
 import streamlit as st
 import matplotlib.pyplot as plt
+import seaborn as sns
+import numpy as np
+
+plt.style.use('seaborn')
 
 def show_instructions(language):
     if language == "Deutsch":
@@ -45,25 +49,21 @@ def assign_categories(antworten, kategorien):
 import seaborn as sns
 
 def plot_results(ergebnisse):
-    plt.figure(figsize=(12, 8))
-    colors = []
-    for v in ergebnisse.values():
-        if v < 30:
-            colors.append("green")
-        elif v < 40:
-            colors.append("orange")
-        else:
-            colors.append("red")
-    bars = plt.bar(ergebnisse.keys(), ergebnisse.values(), color=colors)
-    plt.title('Testergebnisse nach Kategorien')
-    plt.xlabel('Kategorie')
-    plt.ylabel('Punkte')
-    plt.ylim(0, 50)
-    plt.grid(axis='y', linestyle='--', alpha=0.7)
-    for bar, v in zip(bars, ergebnisse.values()):
-        plt.text(bar.get_x() + bar.get_width()/2, v + 1, str(v), ha='center', va='bottom')
-    st.pyplot(plt)
-
+    fig, ax = plt.subplots(figsize=(12, 8))
+    colors = ['green' if v < 30 else 'orange' if v < 40 else 'red' for v in ergebnisse.values()]
+    bars = ax.bar(ergebnisse.keys(), ergebnisse.values(), color=colors)
+    ax.set_title('Testergebnisse nach Kategorien')
+    ax.set_xlabel('Kategorie')
+    ax.set_ylabel('Punkte')
+    ax.set_ylim(0, 50)
+    ax.grid(axis='y', linestyle='--', alpha=0.7)
+    for bar in bars:
+        height = bar.get_height()
+        ax.text(bar.get_x() + bar.get_width()/2, height,
+                f'{height}', ha='center', va='bottom')
+    plt.tight_layout()
+    st.pyplot(fig)
+    
 def evaluate_results(ergebnisse, language):
     if language == "Deutsch":
         st.write("Auswertung für jede Kategorie:")
