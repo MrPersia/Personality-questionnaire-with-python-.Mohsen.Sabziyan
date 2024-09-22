@@ -347,5 +347,27 @@ def questionnaire_app():
         evaluate_results(ergebnisse, language)
         plot_results(ergebnisse)
 
+import streamlit as st
+
+def main():
+    # Seitenleiste
+    st.sidebar.markdown("<h2 style='text-align: center;'>📬 Kontakt : Mohsen Sabziyan</h2>", unsafe_allow_html=True)
+
+    # Blaue Icons
+    logo_color = "#007BFF"  # Beispiel für Blau, ändere den Farbcode nach Bedarf
+    cols = st.sidebar.columns(3)
+
+    with cols[0]:
+        st.markdown(f"[![GitHub](https://img.icons8.com/ios-glyphs/60/{logo_color[1:]}/github.png)](https://github.com/MrPersia)")
+    with cols[1]:
+        st.markdown(f"[![LinkedIn](https://img.icons8.com/ios-glyphs/60/{logo_color[1:]}/linkedin.png)](https://www.linkedin.com/in/mohsen-sabziyan-7a3b17221/)")
+    with cols[2]: 
+        st.markdown(f"[![E-Mail](https://img.icons8.com/ios-glyphs/60/{logo_color[1:]}/email.png)](mailto:sabziyanmohsen@gmail.com)")
+
+    # Hauptinhalt der Anwendung
+    st.title("Willkommen zu meiner Streamlit-Anwendung!")
+    st.write("Hier kannst du Inhalte hinzufügen, die deine Datenanalyse-Fähigkeiten zeigen.")
+
 if __name__ == "__main__":
-    questionnaire_app()
+    main()
+
