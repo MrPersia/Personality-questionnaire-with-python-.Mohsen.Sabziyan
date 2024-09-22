@@ -347,7 +347,5 @@ def questionnaire_app():
         evaluate_results(ergebnisse, language)
         plot_results(ergebnisse)
 
-
 if __name__ == "__main__":
-    main()
-
+    questionnaire_app()
